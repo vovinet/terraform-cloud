@@ -6,6 +6,14 @@ terraform {
     }
   }
   
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "vovinet-netology"
+
+    workspaces {
+      name = "terraform-cloud"
+    }
+  }
   backend "s3" {
     bucket = "vovinet-netology-states"
     key    = "terraform.tfstate"

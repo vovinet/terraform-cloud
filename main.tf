@@ -2,18 +2,6 @@ provider "aws" {
   region = "eu-central-1"
 }
 
-data "terraform_remote_state" "vpc" {
-backend = "remote"
-
-  config = {
-    organization = "vovinet-netology"
-    workspaces = {
-      name = "terraform-cloud"
-      name = "prod"
-    }
-  }
-}
-
 locals {
   workspace_instance_type_map = {
     terraform-cloud = "t2.micro"
