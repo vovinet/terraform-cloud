@@ -14,10 +14,4 @@ terraform {
       name = "terraform-cloud"
     }
   }
-  backend "s3" {
-    bucket = "vovinet-netology-states"
-    key    = "terraform.tfstate"
-    encrypt = true
-    region = "eu-central-1"
-  }
 }

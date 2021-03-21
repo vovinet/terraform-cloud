@@ -2,37 +2,6 @@ provider "aws" {
   region = "eu-central-1"
 }
 
-locals {
-  workspace_instance_type_map = {
-    terraform-cloud = "t2.micro"
-    prod = "t2.large"
-  }
-  workspace_instance_count = {
-    terraform-cloud = "1"
-    prod = "2"
-  }
-
-  foreach_instance_desc = {
-    terraform-cloud = {
-      stage-1 = {
-        name = "stage-1"
-        instance_type = "t2.micro"
-      }
-    }
-    prod = {
-      prod-1 = {
-        name = "prod-1"
-        instance_type = "t2.large"
-      }
-      prod-2 = {
-        name = "prod-2"
-        instance_type = "t2.large"
-      }
-    }
-  }
-
-}
-
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -47,15 +16,6 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "ec2_count" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = local.workspace_instance_type_map[terraform.workspace]
-  count         = local.workspace_instance_count[terraform.workspace]
-}
-
-resource "aws_instance" "ec2_foreach" {
-  for_each = local.foreach_instance_desc[terraform.workspace]
-    tags = {
-      name = each.value.name
-    }
-    ami           = data.aws_ami.ubuntu.id
-    instance_type = each.value.instance_type
+  instance_type = "t2.micro"
+  count         = "2"
 }
