@@ -4,16 +4,16 @@ provider "aws" {
 
 locals {
   workspace_instance_type_map = {
-    stage = "t2.micro"
+    terraform-cloud = "t2.micro"
     prod = "t2.large"
   }
   workspace_instance_count = {
-    stage = "1"
+    terraform-cloud = "1"
     prod = "2"
   }
 
   foreach_instance_desc = {
-    stage = {
+    terraform-cloud = {
       stage-1 = {
         name = "stage-1"
         instance_type = "t2.micro"
