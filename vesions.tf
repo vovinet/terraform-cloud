@@ -6,18 +6,6 @@ terraform {
     }
   }
   
-  data "terraform_remote_state" "vpc" {
-  backend = "remote"
-
-    config = {
-      organization = "vovinet-netology"
-      workspaces = {
-        name = "terraform-cloud"
-        name = "prod"
-      }
-    }
-  }
-
   backend "s3" {
     bucket = "vovinet-netology-states"
     key    = "terraform.tfstate"
